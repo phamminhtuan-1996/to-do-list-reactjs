@@ -1,22 +1,41 @@
+import { useState } from 'react';
 import logo from './logo.svg';
+import './bootstrap/bootstrap.scss';
 import './App.css';
+import 'antd/dist/reset.css';
+
+import ItemTodo from './components/ItemTodo/ItemTodo.js'
+import InputListTodo from './components/InputListTodo/InputListTodo.js'
 
 function App() {
+  const element = (
+    <h1 className='text-primary'>App list todo</h1>
+  )
+  let [valueListTodo, setValueListTodo] = useState([]);
+
+  function handleClick(value) {
+    let updateArray = [...valueListTodo];
+    updateArray[value.index].checked = value.value;
+    setValueListTodo(updateArray);
+  }
+
+  function handleInput(value) {
+    setValueListTodo([...valueListTodo, {name: value, checked: false}]);
+  }
+  function removeItem (value) {
+    let updateArray = [...valueListTodo];
+    updateArray.splice(value, 1);
+    setValueListTodo(updateArray);
+  }
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        { element }
+        <InputListTodo onInputChange={handleInput}/>
+        {valueListTodo.map((item, index) => (
+          <ItemTodo key={index} indexListoDo={index} onInputChange={handleClick} onRemoveItem={removeItem} data={item}/>
+        ))}
       </header>
     </div>
   );
