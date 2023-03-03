@@ -14,9 +14,21 @@ function InputListTodo(props) {
         props.onInputChange(valueInput);
         setValueInput('');
     }
+    function handleInputKeyPress(event) {
+        if (event.keyCode !== 13) {
+            return;
+        }
+        handleClickSubmid();
+    }
     return (
         <div className="input-list-todo d-flex">
-            <span className='input-list-todo__label d-block mr-2'>Input value</span> <Input value={valueInput} onChange={handleInput} placeholder="Basic usage" />
+            <span className='input-list-todo__label d-block mr-2'>Input value</span> 
+            <Input
+                value={valueInput} 
+                onChange={handleInput}
+                onKeyDown={handleInputKeyPress}
+                placeholder="Basic usage" 
+            />
             <Button className='bg-success h-100 ml-2 text-white' onClick={handleClickSubmid}>Submit</Button>
         </div>
     )

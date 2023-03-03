@@ -13,10 +13,18 @@ function App() {
   )
   let [valueListTodo, setValueListTodo] = useState([]);
 
+  function sortITem() {
+    let updateArray = [...valueListTodo];
+    updateArray.forEach((item) => {
+      console.log(item);
+    })
+  }
+
   function handleClick(value) {
     let updateArray = [...valueListTodo];
     updateArray[value.index].checked = value.value;
     setValueListTodo(updateArray);
+    sortITem();
   }
 
   function handleInput(value) {
@@ -34,7 +42,12 @@ function App() {
         { element }
         <InputListTodo onInputChange={handleInput}/>
         {valueListTodo.map((item, index) => (
-          <ItemTodo key={index} indexListoDo={index} onInputChange={handleClick} onRemoveItem={removeItem} data={item}/>
+          <ItemTodo
+            key={index}
+            indexListoDo={index}
+            onInputChange={handleClick}
+            onRemoveItem={removeItem} data={item}
+          />
         ))}
       </header>
     </div>
